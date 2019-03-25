@@ -1,0 +1,27 @@
+body {
+    background-color: #999;
+    color: #fff;
+    margin: 0;
+    overflow: hidden;
+}
+
+#progressBar {
+    width: 500px;
+    height: 24px;
+    position: absolute;
+    left: 50%;
+    top: 60px;
+    margin-left: -250px;
+}
+
+#drop_zone {
+  border: 5px solid blue;
+  width:  1000px;
+  height: 100px;
+}
+
+.right{
+    position: absolute;
+    right: 0;
+    width: 30vw;
+}
