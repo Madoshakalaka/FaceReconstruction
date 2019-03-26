@@ -21,9 +21,9 @@ js is located at: `FaceReconstruction-master\modelEval\static\modelEval\js`
 
 There are sometimes `{% ... %}` or `{{...}}` in the html
 For example:
-`{% static 'modelEval/js/jqeury.js' %}`
-`{%if result%}yes{% else %}no{% endif %}`
-`{{greetings}}`
+    {% static 'modelEval/js/jqeury.js' %}
+    {%if result%}yes{% else %}no{% endif %}
+    {{greetings}}
 
 These are called **tags**. It's a DJANGO feature for dynamic web page. Django will parse the html first to remove tags and generate proper html, and display the parsed html as a response.
 
