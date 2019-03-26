@@ -21,6 +21,7 @@ js is located at: `FaceReconstruction-master\modelEval\static\modelEval\js`
 
 There are sometimes `{% ... %}` or `{{...}}` in the html
 For example:
+
     {% static 'modelEval/js/jqeury.js' %}
     {%if result%}yes{% else %}no{% endif %}
     {{greetings}}
