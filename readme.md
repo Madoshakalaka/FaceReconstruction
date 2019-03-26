@@ -1,9 +1,13 @@
 # How to Use on Windows System
 
-## If you have python 3.x
-locate where python3 is
+Make sure you're using python 3
 
+On command line:
 
-Download python 3.x.
+1. cd to FaceReconstruction-master
 
-tick Add Path to 
+2. >pip install -r requirements.txt
+
+3. python manage.py runserver
+
+The above runs the server on http://127.0.0.1:8000/, paste it to the browser to view the website.
