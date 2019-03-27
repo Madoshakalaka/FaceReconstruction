@@ -6,6 +6,7 @@
     <title>modelEval</title>
     <link rel="stylesheet" href="{% static 'modelEval/css/app.css' %}"/>
     <meta charset="utf-8">
+  
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
 </head>
@@ -15,21 +16,35 @@
 
 <body>
 
+    <nav class="menu" tabindex="0">
+        <header style="width:100%; text-align: center; margin-top: 20px; margin-left: auto;margin-right: auto;">
+            <img style="width:120px; text-align: center; margin-top: 20px;margin-left: auto;margin-right: auto;" src="{% get_media_prefix %}{% if picname %}{{ picname }}{% else %}LOGO.png{% endif %}" alt="image" class="">
+            <h2>Try-on your glasses</h2>
+            <p>Drop your portrait to get an 3D model </p>
+        </header>
+        <ul>
+          
+          <li tabindex="0" ><span>note: file has to be jpg or png</span></li>
+          <li tabindex="0" ><span>add file:</span></li>
+          <li tabindex="0" ><span>
+            <form action="{% url 'modelEval:index' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="testName" >
+            </span></li>
+          <li tabindex="0" ><span>
+                <input type="submit" value="Submit">
+             </span></li>
+        </ul>
+        <header class="avatar" style="bottom: 0px; position: fixed; width: 30%;">
+            <img src="{% get_media_prefix %}{% if picname %}{{ picname }}{% else %}6.jpg{% endif %}" alt="image" class="">
+            <!-- <h2>{{ greetings }}</h2> -->
+        </header>
+    </nav>
 
-    <div id="demo"></div>
 
-<div id="drop_zone" >
-    <p>note: file has to be jpg or png</p>
-<form action="{% url 'modelEval:index' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-  add file: <input type="file" name="testName" ><br>
-  <input type="submit" value="Submit">
-</form>
-
-    <img src="{% get_media_prefix %}{% if picname %}{{ picname }}{% else %}6.jpg{% endif %}" alt="image" class="right">
-
-</div>
-<p>{{ greetings }}</p>
+    
+        <div id="demo"></div>
+ 
 
 
 
@@ -50,8 +65,8 @@
         var container;
         var camera, controls, scene, renderer;
         var mouse = { x: 0, y: 0 };
-        var windowHalfX = window.innerWidth / 2;
-        var windowHalfY = window.innerHeight / 2;
+        var windowHalfX = window.innerWidth / 1;
+        var windowHalfY = window.innerHeight / 1;
         var tween;
         var raycaster;
         var objects = [];
@@ -70,7 +85,7 @@
             container = document.getElementById("demo");
             document.body.appendChild(container);
 
-            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
 
 
             {#camera.position.x = 1000;#}
@@ -134,6 +149,7 @@ scene.add( gridHelper );
             var loader = new THREE.OBJVertexColorLoader(manager);
             loader.load('{% get_media_prefix %}{% if res %}{{ res }}.obj{% else %}face.obj{% endif %}', function (object) {
                 {#object.rotation.x = Math.PI;#}
+                object.scale.set(0.5,0.5,0.5);
                 //console.dir(object);
                 scene.add(object);
                 objects.push(object);
@@ -164,7 +180,7 @@ scene.add( gridHelper );
 
             renderer = new THREE.WebGLRenderer();
             renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setSize(window.innerWidth/2, window.innerHeight/2);
+            renderer.setSize(window.innerWidth/1, window.innerHeight/1);
             container.appendChild(renderer.domElement);
 
             raycaster = new THREE.Raycaster();

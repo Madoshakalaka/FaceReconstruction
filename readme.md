@@ -9,11 +9,11 @@ On command line:
     pip install -r requirements.txt
 
     python manage.py runserver
-
+/Users/jinwei/Documents/GitHub/FaceReconstruction
 The above runs the server on http://127.0.0.1:8000/, paste it to the browser to view the website.
 
 ## To Edit Web-page in Django Framework
-html is located at: `FaceReconstruction-master\modelEval\templates\modelEval\index.html`
+html is located at: ` \index.html`
 
 css is located at: `FaceReconstruction-master\modelEval\static\modelEval\css`
 
