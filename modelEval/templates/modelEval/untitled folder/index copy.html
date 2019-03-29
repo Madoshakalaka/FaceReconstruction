@@ -1,82 +1,37 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>modelEval</title>
-    <link rel="stylesheet" href="{% static 'modelEval/css/app2.css' %}"/>
+    <link rel="stylesheet" href="{% static 'modelEval/css/app.css' %}"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Amiri|Cormorant+Garamond|Frank+Ruhl+Libre|Vidaloka" rel="stylesheet">
+
 </head>
 
 
 
 
-<body> 
-    <nav class="menu" tabindex="0">
-        <header style="width:100%; text-align: center; margin-top: 30px; margin-left: auto;margin-right: auto;">
-            <img style="width:280px; text-align: center; margin-top: 20px;margin-left: auto;margin-right: auto;" src="{% get_media_prefix %}{% if picname %}{{ picname }}{% else %}LOGO.png{% endif %}" alt="image" class="">
-        </header>
-        
-        <ul style="width:240px; margin-left: auto; margin-right: auto;margin-top: 10%"> 
-          <li tabindex="0" >
-            <span>
-                <i class="fas fa-cloud-upload-alt"> &nbsp;&nbsp;1. Upload your portrait</i>
-                <form action="{% url 'modelEval:index' %}" method="post" enctype="multipart/form-data" style="margin-top: 10px; margin-left: 45px;">
-                  {% csrf_token %}
-                <input type="file" name="testName" >
-              </span>
-          </li>
-          
-          <li>
-            <header class="avatar" style="background: transparent;">
-                <img src="{% get_media_prefix %}{% if picname %}{{ picname }}{% else %}6.jpg{% endif %}" alt="image" class="">   
-            </header>
-          </li>
+<body>
 
-          <li tabindex="0" >
-            <span>
-                <i class="fas fa-drafting-compass">&nbsp;&nbsp;2. Modeling your face online</i>
-                <br><input type="submit" value="Submit" style="margin-top: 10px; margin-left: 45px;">
-            </span>
-          </li>
-        </ul>
-        
-        
-        <header class="avatar" style="bottom: 0px; position: fixed; width: 30%;">    
-            <div style="width:240px; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
-                <i style="float:left; margin-bottom: 20px;" class="fas fa-glasses">&nbsp;&nbsp;3. Try-on the glasses</i>
-            </div> 
-            <div>  
-              <div class="item">
-                <img src="{% get_media_prefix %}{% if picname %}{{ picname }}{% else %}glasses.jpg{% endif %}" alt="item" />
-                <p style="font-size:0.8em;">Price: <em>$449</em></p>
-                <button class="add-to-cart" type="button">Add to cart</button>
-              </div>
-        <!--/ single item -->
-        <!-- single item -->
-              <div class="item">
-                <img src="{% get_media_prefix %}{% if picname %}{{ picname }}{% else %}glasses.jpg{% endif %}" alt="item" />
-                <p style="font-size:0.8em;">Price: <em>$449</em></p>
-                <button class="add-to-cart" type="button">Add to cart</button>
-              </div>
-            </div> 
-        </header>
-    </nav>
 
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
-    <script type='text/javascript' src="{% static 'modelEval/js/cart.js' %}"></script>
-    
     <div id="demo">
-        <span> <i class="fas fa-shopping-cart shopping-cart " style="color:#F8F8FF; float:right; margin: 40px"></i> </span> 
+
+<div id="drop_zone" >
+    <p>note: file has to be jpg or png</p>
+<form action="{% url 'modelEval:index' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+  add file: <input type="file" name="testName" ><br>
+  <input type="submit" value="Submit">
+</form>
+
+    <img src="{% get_media_prefix %}{% if picname %}{{ picname }}{% else %}6.jpg{% endif %}" alt="image" class="right">
+
+</div>
+<p>{{ greetings }}</p>
     </div>
- 
-  
+
 
 
 
@@ -92,28 +47,43 @@
     <progress value="0" max="100" id="progressBar"></progress>
 
     <script>
+
         var container;
         var camera, controls, scene, renderer;
         var mouse = { x: 0, y: 0 };
-        var windowHalfX = window.innerWidth / 1;
-        var windowHalfY = window.innerHeight / 1;
+        var windowHalfX = window.innerWidth / 2;
+        var windowHalfY = window.innerHeight / 2;
         var tween;
         var raycaster;
         var objects = [];
         var progressBar;
         var pivot;
         var axis;
+
         init();
         animate();
+
         function init() {
+
             progressBar = document.getElementById('progressBar');
             //progressBar.style.display = "none";
+
             container = document.getElementById("demo");
             document.body.appendChild(container);
-            camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000);
+
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+
+
             {#camera.position.x = 1000;#}
-            {#camera.position.y = 2000;#}
-            {#camera.position.z = 1000;#}
+            {#camera.position.y = 20;#}
+            {#camera.position.z = 10;#}
+
+
+
+
+
+
+
             controls = new THREE.TrackballControls(camera);
             controls.rotateSpeed = 4.0;
             controls.zoomSpeed = 2;
@@ -122,23 +92,35 @@
             controls.noPan = false;
             controls.staticMoving = true;
             controls.dynamicDampingFactor = 0.3;
+
+
             scene = new THREE.Scene();
+
             var ambient = new THREE.AmbientLight(0x888888);
             scene.add(ambient);
+
             pivot = new THREE.Object3D();
             axis = new THREE.Vector3( 0.5, 1, 1 );
+
             scene.add( pivot );
             pivot.add( camera );
+
             var gridHelper = new THREE.GridHelper( 1000, 10 );
 scene.add( gridHelper );
+
             pivot.rotateOnAxis( axis, 0.5 );
+
             var directionalLight = new THREE.DirectionalLight(0xffeedd);
             directionalLight.position.set(0, -100, 0);
             scene.add(directionalLight);
+
             var manager = new THREE.LoadingManager();
             // manager.onProgress = function (item, loaded, total) {
             //     console.log(item, loaded, total);
             // };
+
+
+
             var onProgress = function (xhr) {
                 if (xhr.lengthComputable) {
                     var percentComplete = xhr.loaded / xhr.total * 100;
@@ -148,53 +130,75 @@ scene.add( gridHelper );
                 }
             };
             var onError = function (xhr) { };
+
+
             var loader = new THREE.OBJVertexColorLoader(manager);
             loader.load('{% get_media_prefix %}{% if res %}{{ res }}.obj{% else %}face.obj{% endif %}', function (object) {
                 {#object.rotation.x = Math.PI;#}
-                object.scale.set(1,1,1);
+                object.scale.set(0.5,0.5,0.5);
                 //console.dir(object);
                 scene.add(object);
                 objects.push(object);
+
                 progressBar.style.display = "none";
+
+
                 tween = new TWEEN.Tween(controls.target)
                     .to({
-                        x: 190,
-                        y: 350,
-                        z: 400
+                        x: 180,
+                        y: 260,
+                        z: 450
                     }, 1000)
                     .easing(TWEEN.Easing.Quintic.Out)
                     .start();
+
                 tween = new TWEEN.Tween(camera.position)
                     .to({
-                        x: 400,
-                        y: 600,
+                        x: 100,
+                        y: 300,
                         z: 700
-                    }, 2000)
+                    }, 1000)
                     .easing(TWEEN.Easing.Quintic.Out)
                     .start();
+
+
             }, onProgress, onError);
+
             renderer = new THREE.WebGLRenderer();
             renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setSize(window.innerWidth/1, window.innerHeight/1);
+            renderer.setSize(window.innerWidth/2, window.innerHeight/2);
             container.appendChild(renderer.domElement);
+
             raycaster = new THREE.Raycaster();
+
             window.addEventListener('resize', onWindowResize, false);
             renderer.domElement.ondblclick = onDoubleClick;
+
+
+
         }
+
         function onWindowResize() {
+
             windowHalfX = window.innerWidth / 2;
             windowHalfY = window.innerHeight / 2;
+
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
+
             controls.handleResize();
+
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
+
         function onDoubleClick(event) {
             event.preventDefault();
             if (event.button === 0) {
                 mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
                 mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+
                 raycaster.setFromCamera(mouse, camera);
+
                 var intersects = raycaster.intersectObjects(objects, true);
                 //console.dir(intersects);
                 //console.log(camera.position)
@@ -210,21 +214,29 @@ scene.add( gridHelper );
             }
         }
         function animate(time) {
+
             requestAnimationFrame(animate);
             TWEEN.update();
             controls.update();
             render();
         }
+
         function render() {
+
             renderer.render(scene, camera);
         }
+
         {#window.addEventListener("keypress", function (ev) { pivot.rotateOnAxis(axis, 0.1); })#}
+
+
         function dropHandler(ev) {
           console.log('File(s) dropped');
+
           // Prevent default behavior (Prevent file from being opened)
           ev.preventDefault();
           var file;
           var reader;
+
           if (ev.dataTransfer.items) {
             // Use DataTransferItemList interface to access the file(s)
             for (i = 0; i < ev.dataTransfer.items.length; i++) {
@@ -235,6 +247,7 @@ scene.add( gridHelper );
                 reader.readAsText(file, 'UTF-8');
                 reader.onload = shipOff;
                 console.log("shit1");
+
               }
             }
           } else {
@@ -248,12 +261,18 @@ scene.add( gridHelper );
             }
           }
         }
+
         function shipOff(event) {
+
             var result = event.target.result;
             var fileName = document.getElementById('fileBox').files[0].name; //Should be 'picture.jpg'
             $.post("{% url 'modelEval:index' %}", { data: result, name: fileName },function (){
+
             });
         }
+
+
+
     </script>
 
 </body>

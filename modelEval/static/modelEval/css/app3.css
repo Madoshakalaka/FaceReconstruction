@@ -43,7 +43,6 @@ body {
     position: relative;
     height: 100vh;
   }
-
   main .helper {
     background: rgba(0, 0, 0, 0.2);
     color: #ffea92;
@@ -63,7 +62,7 @@ body {
     display: block;
   }
   .menu {
-    background:#F8F8FF;
+    background: #F8F8FF;
     height: 100vh;
     width: 30%;
     position: fixed;
@@ -124,93 +123,6 @@ body {
   .menu ul li:focus {
     outline: none;
   }
-
-  /* .btn-5 {
-    border: 0 solid;
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
-    outline: 1px solid;
-    outline-color: rgba(255, 255, 255, 0.5);
-    outline-offset: 0px;
-    text-shadow: none;
-    transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
-  }
-  
-  .btn-5:hover {
-    border: 1px solid;
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
-    outline-color: rgba(255, 255, 255, 0);
-    outline-offset: 15px;
-    text-shadow: 1px 1px 2px #427388;
-  }
-  .btn {
-    color: #fff;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 45px;
-    margin: 0 0 2em;
-    max-width: 160px;
-    position: relative;
-    text-decoration: none;
-    text-transform: uppercase;
-    width: 100%;
-  }
-  @media (min-width: 600px) {
-    .btn {
-      margin: 0 1em 2em;
-    }
-  }
-  .btn:hover {
-    text-decoration: none;
-  }
-  p a:hover {
-    background: white;
-    color: #E1332D;
-  } */
-
-  input[type=submit], input[type=file] {
-    border: 0 solid;
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
-    outline: 1px solid;
-    outline-color: rgba(255, 255, 255, 0.5);
-    outline-offset: 0px;
-    text-shadow: none;
-    transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
-    color: #303292;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 45px;
-    margin: 0 0 2em;
-    max-width: 160px;
-    position: relative;
-    text-decoration: none;
-    text-transform: uppercase;
-    width: 100%;
-    background-color: transparent;
-  }
-  
-  input[type="submit"]:hover, input[type=file]:hover {
-    border: 1px solid;
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
-    outline-color: rgba(255, 255, 255, 0);
-    outline-offset: 15px;
-    text-shadow: 1px 1px 2px #427388;
-  }
-  
-  @media (min-width: 600px) {
-    .btn {
-      margin: 0 1em 2em;
-    }
-  }
-  .btn:hover {
-    text-decoration: none;
-  }
-  p a:hover {
-    background: white;
-    color: #E1332D;
-  } 
-  
   @media screen and (max-width: 900px) and (min-width: 400px) {
     body {
       padding-left: 90px;
@@ -321,3 +233,52 @@ body {
     }
   }
   
+
+/* NEW */
+.clear{
+    clear: both;
+}
+.cart span {
+    padding: 20px
+}
+.shopping-cart {
+    color: 
+    display: inline-block;
+    background: url('http://cdn1.iconfinder.com/data/icons/jigsoar-icons/24/_cart.png') no-repeat 0 0;
+    width: 24px;
+    height: 24px;
+    margin: 0 10px 10px 0;
+}
+.items {
+    display: block;
+    margin: 20px 0;
+}
+
+.item {
+    float: left;
+    margin: 0 ;
+    margin-left: 50px;
+    width: 205px;
+    padding: 20px;
+    height: 150px;
+}
+
+.item img{
+  width:120px; 
+  text-align: center; 
+  position: relative;
+  margin:auto;
+  display: block;
+}
+
+button {
+  border: 1px solid #722A1B;
+  padding: 4px 14px;
+  background-color: #303292;
+  color: #722A1B;
+  text-transform: uppercase;
+  margin: 5px 0;
+  font-weight: bold;
+  cursor: pointer;
+}
+/* END NEW */
