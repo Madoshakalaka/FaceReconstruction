@@ -56,14 +56,15 @@
             </div> 
             <div>  
               <div class="item">
-                <img src="{% get_media_prefix %}{% if picname %}{{ picname }}{% else %}glasses.jpg{% endif %}" alt="item" />
+                <img id = "glass1" onClick = "WearGlass1()"  src="{% get_media_prefix %}{% if picname %}{{ picname }}{% else %}glasses.jpg{% endif %}" alt="item" />
                 <p style="font-size:0.8em;">Price: <em>$449</em></p>
                 <button class="add-to-cart" type="button">Add to cart</button>
               </div>
         <!--/ single item -->
+
         <!-- single item -->
               <div class="item">
-                <img src="{% get_media_prefix %}{% if picname %}{{ picname }}{% else %}glasses.jpg{% endif %}" alt="item" />
+                <img id = "glass2" onClick = "WearGlass2()" src="{% get_media_prefix %}{% if picname %}{{ picname }}{% else %}glasses.jpg{% endif %}" alt="item" />
                 <p style="font-size:0.8em;">Price: <em>$449</em></p>
                 <button class="add-to-cart" type="button">Add to cart</button>
               </div>
@@ -75,6 +76,8 @@
     <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
     <script type='text/javascript' src="{% static 'modelEval/js/cart.js' %}"></script>
     
+    
+    <!-- 3d Model Viewer -->
     <div id="demo">
         <span> <i class="fas fa-shopping-cart shopping-cart " style="color:#F8F8FF; float:right; margin: 40px"></i> </span> 
     </div>
@@ -93,6 +96,11 @@
     <script src="{% static 'modelEval/js/libs/stats.min.js' %}"></script>
 
     <progress value="0" max="100" id="progressBar"></progress>
+
+
+
+
+    <!-- Loading face model -->
     <script>
         var container;
         var camera, controls, scene, renderer;
@@ -105,8 +113,13 @@
         var progressBar;
         var pivot;
         var axis;
+        var glasses = [];
+        // var click_status = false;
+        
+
         init();
         animate();
+
         function init() {
             progressBar = document.getElementById('progressBar');
             //progressBar.style.display = "none";
@@ -152,57 +165,59 @@ scene.add( gridHelper );
             };
             var onError = function (xhr) { };
  
-            // Sunglass loader
+            // // Sunglass loader
+            // console.log(click_status);
+            // if (click_status){
+            // THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
 
-            THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
+            // var mtlLoader = new THREE.MTLLoader();
+            // mtlLoader.load( '{% get_media_prefix %}{% if res %}{{ res }}.mtl{% else %}CHANEL.mtl{% endif %}', function( materials ) {
 
-            var mtlLoader = new THREE.MTLLoader();
-            mtlLoader.load( '{% get_media_prefix %}{% if res %}{{ res }}.mtl{% else %}CHANEL.mtl{% endif %}', function( materials ) {
+            //     materials.preload();
 
-                materials.preload();
-
-                var objLoader = new THREE.OBJLoader();
-                objLoader.setMaterials( materials );
-                objLoader.load( '{% get_media_prefix %}{% if res %}{{ res }}.obj{% else %}CHANEL.obj{% endif %}', function ( object ) {
-                    {#object.rotation.x = Math.PI;#}
-                    // object.scale.set(2,2,2);
-                    object.position.y = 250;
-                    object.position.z = -50;
-                    object.position.x = -10;
-                    object.rotateOnAxis( new THREE.Vector3(0,1,0.1), 2 );
-                    console.log(object.position);
-
+            //     var objLoader = new THREE.OBJLoader();
+            //     objLoader.setMaterials( materials );
+            //     objLoader.load( '{% get_media_prefix %}{% if res %}{{ res }}.obj{% else %}CHANEL.obj{% endif %}', function ( object ) {
+            //         {#object.rotation.x = Math.PI;#}
+            //         // object.scale.set(2,2,2);
+            //         object.position.y = 250;
+            //         object.position.z = -50;
+            //         object.position.x = -10;
+            //         object.rotateOnAxis( new THREE.Vector3(0,1,0.1), 2 );
+            //         console.log(object.position);
                     
-                    scene.add( object );
-                    objects.push(object);
-                    progressBar.style.display = "none";
-                    tween = new TWEEN.Tween(controls.target)
-                        .to({
-                            x: 180,
-                            y: 260,
-                            z: 450
-                        }, 1000)
-                        .easing(TWEEN.Easing.Quintic.Out)
-                        .start();
-                    tween = new TWEEN.Tween(camera.position)
-                        .to({
-                            x: 100,
-                            y: 300,
-                            z: 700
-                        }, 1000)
-                        .easing(TWEEN.Easing.Quintic.Out)
-                        .start();
-                }, onProgress, onError);
+                    
+            //         scene.add( object );
+            //         objects.push(object);
+            //         progressBar.style.display = "none";
+            //         tween = new TWEEN.Tween(controls.target)
+            //             .to({
+            //                 x: 180,
+            //                 y: 260,
+            //                 z: 450
+            //             }, 1000)
+            //             .easing(TWEEN.Easing.Quintic.Out)
+            //             .start();
+            //         tween = new TWEEN.Tween(camera.position)
+            //             .to({
+            //                 x: 100,
+            //                 y: 300,
+            //                 z: 700
+            //             }, 1000)
+            //             .easing(TWEEN.Easing.Quintic.Out)
+            //             .start();
+                    
+            //     }, onProgress, onError);
+            
+            //  });}
 
-            });
 
-
-// face loader 
+            // face loader 
             var loader = new THREE.OBJVertexColorLoader(manager);
             loader.load('{% get_media_prefix %}{% if res %}{{ res }}.obj{% else %}face.obj{% endif %}', function (object) {
                 {#object.rotation.x = Math.PI;#}
                 // object.scale.set(0.5,0.5,0.5);
-                console.log(object.position);
+                //console.log(object.position);
                 object.position.y = -100;
                 object.position.x = -150;
                 object.position.z = -125;
@@ -226,6 +241,11 @@ scene.add( gridHelper );
                     .easing(TWEEN.Easing.Quintic.Out)
                     .start();
             }, onProgress, onError);
+        
+
+
+
+
             renderer = new THREE.WebGLRenderer();
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(window.innerWidth/1, window.innerHeight/1);
@@ -307,7 +327,117 @@ scene.add( gridHelper );
             $.post("{% url 'modelEval:index' %}", { data: result, name: fileName },function (){
             });
         }
+
+
+
+        // Onclick glasses1 image load 3d glasses model
+        function WearGlass1(){
+            // Sunglass loader
+            if (glasses.length >0){
+                for (var i =0; i<glasses.length; i++ ){
+                    // if (glasses[i] instanceof THREE.Mesh) {
+                        glasses[i].visible = false;
+                    // }
+                }
+            };
+
+            THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
+            var mtlLoader = new THREE.MTLLoader();
+            mtlLoader.load( '{% get_media_prefix %}{% if res %}{{ res }}.mtl{% else %}CHANEL.mtl{% endif %}', function( materials ) {
+                materials.preload();
+                var objLoader = new THREE.OBJLoader();
+                objLoader.setMaterials( materials );
+                objLoader.load( '{% get_media_prefix %}{% if res %}{{ res }}.obj{% else %}CHANEL.obj{% endif %}', function ( object ) {
+                    {#object.rotation.x = Math.PI;#}
+                    // object.scale.set(2,2,2);
+                    object.position.y = 250;
+                    object.position.z = -50;
+                    object.position.x = -10;
+                    object.rotateOnAxis( new THREE.Vector3(0,1,0.1), 2 );
+                    console.log(object.position);
+                    
+                    
+                    scene.add( object );
+                    glasses.push(object);
+                    progressBar.style.display = "none";
+                    tween = new TWEEN.Tween(controls.target)
+                        .to({
+                            x: 180,
+                            y: 260,
+                            z: 450
+                        }, 1000)
+                        .easing(TWEEN.Easing.Quintic.Out)
+                        .start();
+                    tween = new TWEEN.Tween(camera.position)
+                        .to({
+                            x: 100,
+                            y: 300,
+                            z: 700
+                        }, 1000)
+                        .easing(TWEEN.Easing.Quintic.Out)
+                        .start();    
+                });
+            
+             });}
+
+            // Onclick glasses2 image load 3d glasses model
+            function WearGlass2(){
+            // Sunglass loader
+            console.log(glasses.length)
+            if (glasses.length >0){
+                for (var i =0; i<glasses.length; i++ ){
+                    // if (g instanceof THREE.Mesh) {
+                        glasses[i].visible = false;
+                        console.log("clear glass")
+                    // }
+                }
+            };
+
+            THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
+            var mtlLoader = new THREE.MTLLoader();
+            
+            mtlLoader.load( '{% get_media_prefix %}{% if res %}{{ res }}.mtl{% else %}pixel_glass.mtl{% endif %}', function( materials ) {
+
+                materials.preload();
+                var objLoader = new THREE.OBJLoader();
+                objLoader.setMaterials( materials );
+                objLoader.load( '{% get_media_prefix %}{% if res %}{{ res }}.obj{% else %}pixel_glass.obj{% endif %}', function ( object ) {
+                    {#object.rotation.x = Math.PI;#}
+                    object.scale.set(3,3,3);
+                    object.position.y = 190;
+                    object.position.z = -70;
+                    object.position.x = 50;
+                    object.rotateOnAxis( new THREE.Vector3(-0.05,1,0), 3 );
+                    console.log(object.position);
+                    
+                    
+                    scene.add( object );
+                    glasses.push(object);
+                    progressBar.style.display = "none";
+                    tween = new TWEEN.Tween(controls.target)
+                        .to({
+                            x: 180,
+                            y: 260,
+                            z: 450
+                        }, 1000)
+                        .easing(TWEEN.Easing.Quintic.Out)
+                        .start();
+                    tween = new TWEEN.Tween(camera.position)
+                        .to({
+                            x: 100,
+                            y: 300,
+                            z: 700
+                        }, 1000)
+                        .easing(TWEEN.Easing.Quintic.Out)
+                        .start();    
+                });
+            
+             });
+            }
+
+
     </script>
+
 
 </body>
 
