@@ -15,7 +15,6 @@ def index(request):
         if res == 'problem occurred during reconstruction':
             res = None
 
-
         return HttpResponseRedirect('modelEval?res=%s&picname=%s' % (res, picname))
 
     context = dict()

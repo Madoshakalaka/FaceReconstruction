@@ -1,4 +1,4 @@
-# How to Use on Windows System
+# How to Use
 
 Make sure you're using python 3
 
@@ -9,10 +9,20 @@ On command line:
     pip install -r requirements.txt
 
     python manage.py runserver
-/Users/jinwei/Documents/GitHub/FaceReconstruction
+
 The above runs the server on http://127.0.0.1:8000/, paste it to the browser to view the website.
 
-## To Edit Web-page in Django Framework
+To submit/download files and do face reconstruction on arbitrary faces, an extra tcp server needs to be run, the 
+steps are (before you upload files on the web-page):
+
+    clone https://github.com/YadiraF/PRNet
+    move serverScript.py to the directory of the cloned library
+    cd to the cloned libarary
+    use python2.7
+    pip install -r requirements
+    run serverScript.py
+
+## (For collaborators) To Edit Web-page in Django Framework
 html is located at: ` \index.html`
 
 css is located at: `FaceReconstruction-master\modelEval\static\modelEval\css`
